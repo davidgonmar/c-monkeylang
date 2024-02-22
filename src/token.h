@@ -2,7 +2,7 @@
 
 typedef enum TokenType {
   ILLEGAL,
-  EOF,
+  TEOF,
   IDENT,
   INT,
   ASSIGN,
@@ -21,3 +21,6 @@ typedef struct Token {
   TokenType type;
   char *literal;
 } Token;
+
+Token *token_new_from_char(TokenType type, const char literal);
+Token *token_new_from_str(TokenType type, const char *literal);

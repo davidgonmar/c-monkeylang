@@ -1,3 +1,8 @@
+#pragma once
+
+#include "token.h"
+#include <stdlib.h>
+
 typedef struct Lexer {
   /// The input code to be lexed
   char *input;
@@ -15,3 +20,17 @@ typedef struct Lexer {
  * @param input The input code to be lexed
  */
 Lexer *lexer_new(const char *input);
+
+/**
+ * @brief Advances one position
+ *
+ * @param lexer Lexer class
+ */
+void read_char(Lexer *lexer);
+
+/**
+ * @brief Returns the next token. Advances the lexer's position
+ *
+ * @param lexer Lexer class
+ */
+Token *next_token(Lexer *lexer);
