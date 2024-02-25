@@ -24,3 +24,5 @@ typedef struct Token {
 
 Token *token_new_from_char(TokenType type, const char literal);
 Token *token_new_from_str(TokenType type, const char *literal);
+
+char *token_type_to_str(TokenType type);
