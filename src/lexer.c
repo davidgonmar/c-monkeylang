@@ -38,6 +38,16 @@ TokenType lexer_lookup_ident(const char *ident) {
     return FUNCTION;
   } else if (strcmp(ident, "let") == 0) {
     return LET;
+  } else if (strcmp(ident, "true") == 0) {
+    return TRUE;
+  } else if (strcmp(ident, "false") == 0) {
+    return FALSE;
+  } else if (strcmp(ident, "if") == 0) {
+    return IF;
+  } else if (strcmp(ident, "else") == 0) {
+    return ELSE;
+  } else if (strcmp(ident, "return") == 0) {
+    return RETURN;
   } else {
     return IDENT;
   }

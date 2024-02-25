@@ -34,7 +34,12 @@ void test_next_token_advanced() {
                       "};\n"
                       "!-/*5;\n"
                       "5 < 10 > 5;\n"
-                      "let result = add(five, ten);";
+                      "let result = add(five, ten);\n"
+                      "if (5 < 10) {\n"
+                      "  return true;\n"
+                      "} else {\n"
+                      "  return false;\n"
+                      "}";
 
   Lexer *lexer = lexer_new(input);
   Token *expected_tokens[] = {
@@ -62,9 +67,17 @@ void test_next_token_advanced() {
       token_new_from_str(LPAREN, "("),     token_new_from_str(IDENT, "five"),
       token_new_from_str(COMMA, ","),      token_new_from_str(IDENT, "ten"),
       token_new_from_char(RPAREN, ')'),    token_new_from_char(SEMICOLON, ';'),
-      token_new_from_char(TEOF, '\0')};
+      token_new_from_str(IF, "if"),        token_new_from_str(LPAREN, "("),
+      token_new_from_str(INT, "5"),        token_new_from_str(LT, "<"),
+      token_new_from_str(INT, "10"),       token_new_from_str(RPAREN, ")"),
+      token_new_from_str(LBRACE, "{"),     token_new_from_str(RETURN, "return"),
+      token_new_from_str(TRUE, "true"),    token_new_from_char(SEMICOLON, ';'),
+      token_new_from_str(RBRACE, "}"),     token_new_from_str(ELSE, "else"),
+      token_new_from_str(LBRACE, "{"),     token_new_from_str(RETURN, "return"),
+      token_new_from_str(FALSE, "false"),  token_new_from_char(SEMICOLON, ';'),
+      token_new_from_str(RBRACE, "}"),     token_new_from_char(TEOF, '\0')};
 
-  for (int i = 0; i < 49; i++) {
+  for (int i = 0; i < 66; i++) {
     Token *tok = lexer_next_token(lexer);
     TEST_ASSERT_NOT_NULL(tok);
     TEST_ASSERT_EQUAL_INT_MESSAGE(

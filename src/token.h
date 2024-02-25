@@ -21,6 +21,11 @@ typedef enum TokenType {
   ASTERISK,
   LT,
   GT,
+  TRUE,
+  FALSE,
+  IF,
+  ELSE,
+  RETURN,
 } TokenType;
 
 typedef struct Token {

@@ -64,6 +64,16 @@ char *token_type_to_str(TokenType type) {
     return "LT";
   case GT:
     return "GT";
+  case TRUE:
+    return "TRUE";
+  case FALSE:
+    return "FALSE";
+  case IF:
+    return "IF";
+  case ELSE:
+    return "ELSE";
+  case RETURN:
+    return "RETURN";
   default:
     return "UNKNOWN";
   }
