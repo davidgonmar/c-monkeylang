@@ -14,7 +14,13 @@ typedef enum TokenType {
   LBRACE,
   RBRACE,
   FUNCTION,
-  LET
+  LET,
+  BANG,
+  MINUS,
+  SLASH,
+  ASTERISK,
+  LT,
+  GT,
 } TokenType;
 
 typedef struct Token {

@@ -32,7 +32,8 @@ void test_next_token_advanced() {
                       "let add = fn(x, y) {\n"
                       "  x + y;\n"
                       "};\n"
-                      "\n"
+                      "!-/*5;\n"
+                      "5 < 10 > 5;\n"
                       "let result = add(five, ten);";
 
   Lexer *lexer = lexer_new(input);
@@ -50,14 +51,20 @@ void test_next_token_advanced() {
       token_new_from_str(IDENT, "x"),      token_new_from_char(PLUS, '+'),
       token_new_from_str(IDENT, "y"),      token_new_from_char(SEMICOLON, ';'),
       token_new_from_char(RBRACE, '}'),    token_new_from_char(SEMICOLON, ';'),
+      token_new_from_str(BANG, "!"),       token_new_from_str(MINUS, "-"),
+      token_new_from_str(SLASH, "/"),      token_new_from_str(ASTERISK, "*"),
+      token_new_from_str(INT, "5"),        token_new_from_char(SEMICOLON, ';'),
+      token_new_from_str(INT, "5"),        token_new_from_str(LT, "<"),
+      token_new_from_str(INT, "10"),       token_new_from_str(GT, ">"),
+      token_new_from_str(INT, "5"),        token_new_from_char(SEMICOLON, ';'),
       token_new_from_str(LET, "let"),      token_new_from_str(IDENT, "result"),
       token_new_from_char(ASSIGN, '='),    token_new_from_str(IDENT, "add"),
-      token_new_from_char(LPAREN, '('),    token_new_from_str(IDENT, "five"),
+      token_new_from_str(LPAREN, "("),     token_new_from_str(IDENT, "five"),
       token_new_from_str(COMMA, ","),      token_new_from_str(IDENT, "ten"),
       token_new_from_char(RPAREN, ')'),    token_new_from_char(SEMICOLON, ';'),
       token_new_from_char(TEOF, '\0')};
 
-  for (int i = 0; i < 37; i++) {
+  for (int i = 0; i < 49; i++) {
     Token *tok = lexer_next_token(lexer);
     TEST_ASSERT_NOT_NULL(tok);
     TEST_ASSERT_EQUAL_INT_MESSAGE(

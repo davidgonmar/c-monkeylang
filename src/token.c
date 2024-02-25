@@ -52,6 +52,18 @@ char *token_type_to_str(TokenType type) {
     return "FUNCTION";
   case LET:
     return "LET";
+  case BANG:
+    return "BANG";
+  case MINUS:
+    return "MINUS";
+  case SLASH:
+    return "SLASH";
+  case ASTERISK:
+    return "ASTERISK";
+  case LT:
+    return "LT";
+  case GT:
+    return "GT";
   default:
     return "UNKNOWN";
   }

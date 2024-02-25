@@ -109,6 +109,24 @@ Token *lexer_next_token(Lexer *l) {
   case '}':
     tok = token_new_from_char(RBRACE, '}');
     break;
+  case '-':
+    tok = token_new_from_char(MINUS, '-');
+    break;
+  case '!':
+    tok = token_new_from_char(BANG, '!');
+    break;
+  case '/':
+    tok = token_new_from_char(SLASH, '/');
+    break;
+  case '*':
+    tok = token_new_from_char(ASTERISK, '*');
+    break;
+  case '<':
+    tok = token_new_from_char(LT, '<');
+    break;
+  case '>':
+    tok = token_new_from_char(GT, '>');
+    break;
   case '\0':
     tok = token_new_from_char(TEOF, '\0');
     break;
