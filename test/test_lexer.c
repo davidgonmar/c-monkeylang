@@ -39,7 +39,9 @@ void test_next_token_advanced() {
                       "  return true;\n"
                       "} else {\n"
                       "  return false;\n"
-                      "}";
+                      "}"
+                      "10 == 10;\n"
+                      "10 != 9;\n";
 
   Lexer *lexer = lexer_new(input);
   Token *expected_tokens[] = {
@@ -75,9 +77,13 @@ void test_next_token_advanced() {
       token_new_from_str(RBRACE, "}"),     token_new_from_str(ELSE, "else"),
       token_new_from_str(LBRACE, "{"),     token_new_from_str(RETURN, "return"),
       token_new_from_str(FALSE, "false"),  token_new_from_char(SEMICOLON, ';'),
-      token_new_from_str(RBRACE, "}"),     token_new_from_char(TEOF, '\0')};
+      token_new_from_str(RBRACE, "}"),     token_new_from_str(INT, "10"),
+      token_new_from_str(EQ, "=="),        token_new_from_str(INT, "10"),
+      token_new_from_char(SEMICOLON, ';'), token_new_from_str(INT, "10"),
+      token_new_from_str(NEQ, "!="),       token_new_from_str(INT, "9"),
+      token_new_from_char(SEMICOLON, ';'), token_new_from_char(TEOF, '\0')};
 
-  for (int i = 0; i < 66; i++) {
+  for (int i = 0; i < 74; i++) {
     Token *tok = lexer_next_token(lexer);
     TEST_ASSERT_NOT_NULL(tok);
     TEST_ASSERT_EQUAL_INT_MESSAGE(

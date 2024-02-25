@@ -72,6 +72,10 @@ char *token_type_to_str(TokenType type) {
     return "IF";
   case ELSE:
     return "ELSE";
+  case EQ:
+    return "EQ";
+  case NEQ:
+    return "NEQ";
   case RETURN:
     return "RETURN";
   default:

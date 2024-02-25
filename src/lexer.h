@@ -67,3 +67,11 @@ TokenType lexer_lookup_ident(const char *ident);
  * @param lexer Lexer instance
  */
 void lexer_skip_whitespace(Lexer *lexer);
+
+/**
+ * @brief Gets the next character in the input without advancing the lexer's
+ * position
+ *
+ * @param lexer Lexer instance
+ */
+char lexer_peek_char(Lexer *lexer);

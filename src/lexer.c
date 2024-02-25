@@ -89,6 +89,13 @@ char *lexer_read_number(Lexer *l) {
   return c;
 }
 
+char lexer_peek_char(Lexer *l) {
+  if (l->read_pos >= strlen(l->input)) {
+    return '\0';
+  }
+  return l->input[l->read_pos];
+}
+
 Token *lexer_next_token(Lexer *l) {
   lexer_skip_whitespace(l);
 
@@ -96,7 +103,12 @@ Token *lexer_next_token(Lexer *l) {
 
   switch (l->ch) {
   case '=':
-    tok = token_new_from_char(ASSIGN, '=');
+    if (lexer_peek_char(l) == '=') {
+      tok = token_new_from_str(EQ, "==");
+      lexer_read_char(l); // advance one more position
+    } else {
+      tok = token_new_from_char(ASSIGN, '=');
+    }
     break;
   case ';':
     tok = token_new_from_char(SEMICOLON, ';');
@@ -123,7 +135,12 @@ Token *lexer_next_token(Lexer *l) {
     tok = token_new_from_char(MINUS, '-');
     break;
   case '!':
-    tok = token_new_from_char(BANG, '!');
+    if (lexer_peek_char(l) == '=') {
+      tok = token_new_from_str(NEQ, "!=");
+      lexer_read_char(l); // advance one more position
+    } else {
+      tok = token_new_from_char(BANG, '!');
+    }
     break;
   case '/':
     tok = token_new_from_char(SLASH, '/');

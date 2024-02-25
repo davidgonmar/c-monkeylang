@@ -26,6 +26,8 @@ typedef enum TokenType {
   IF,
   ELSE,
   RETURN,
+  EQ,
+  NEQ
 } TokenType;
 
 typedef struct Token {
