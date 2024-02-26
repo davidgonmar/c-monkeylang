@@ -165,7 +165,8 @@ Token *lexer_next_token(Lexer *l) {
     } else if (isdigit(l->ch)) {
       tok = token_new_from_str(INT, lexer_read_number(l));
     } else {
-      tok = token_new_from_str(ILLEGAL, "illegal!");
+      tok = token_new_from_str(ILLEGAL, "<Illegal literal>");
+      lexer_read_char(l);
     }
     return tok; // since we don't wanna read_char(l) we return early!!
   }

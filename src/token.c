@@ -22,6 +22,22 @@ Token *token_new_from_str(TokenType type, const char *literal) {
   return token_new(type, literal);
 }
 
+char *token_to_str(Token *tok) {
+  char *type_str = token_type_to_str(tok->type);
+
+  char *str =
+      malloc((strlen(type_str) + strlen(tok->literal) + 8 + 11 + 2 + 1) *
+             sizeof(char)); // last +1 for null char
+
+  strcpy(str, "{ Type: ");
+  strcat(str, type_str);
+  strcat(str, ", literal: ");
+  strcat(str, tok->literal);
+  strcat(str, " }");
+
+  return str;
+}
+
 char *token_type_to_str(TokenType type) {
   switch (type) {
   case ILLEGAL:
