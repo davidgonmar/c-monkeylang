@@ -32,6 +32,9 @@ Statement *statement_new(StatementType type) {
   case STATEMENT_TYPE_LET:
     st->data.letSt = *(LetStatement *)malloc(sizeof(LetStatement));
     break;
+  case STATEMENT_TYPE_RETURN:
+    st->data.returnSt = *(ReturnStatement *)malloc(sizeof(ReturnStatement));
+    break;
   default:
     parser_panic(PARSER_ERROR_UNKNOWN_STATEMENT);
   }
@@ -55,6 +58,15 @@ static void parser_parse_let_statement(Parser *parser, Program *prog) {
   prog->n_statements++;
 }
 
+static void parser_parse_return_statement(Parser *parser, Program *prog) {
+  Statement *st = statement_new(STATEMENT_TYPE_RETURN);
+  st->data.returnSt.token = parser->currToken;
+  parser_next_token(parser);
+  st->data.returnSt.retVal = malloc(sizeof(Expression));
+  prog->statements[prog->n_statements] = st;
+  prog->n_statements++;
+}
+
 Program *parser_parse_program(Parser *parser) {
   Program *prog = malloc(sizeof(prog));
   prog->n_statements = 0;
@@ -63,6 +75,8 @@ Program *parser_parse_program(Parser *parser) {
   while (parser->peekToken->type != TEOF) {
     if (parser->currToken->type == LET) {
       parser_parse_let_statement(parser, prog);
+    } else if (parser->currToken->type == RETURN) {
+      parser_parse_return_statement(parser, prog);
     }
     parser_next_token(parser);
   }

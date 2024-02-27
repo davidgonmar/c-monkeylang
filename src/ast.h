@@ -6,7 +6,10 @@ typedef struct Node {
   int x;
 } Node;
 
-typedef enum StatementType { STATEMENT_TYPE_LET } StatementType;
+typedef enum StatementType {
+  STATEMENT_TYPE_LET,
+  STATEMENT_TYPE_RETURN
+} StatementType;
 
 typedef struct Expression {
   Node *node;
@@ -22,6 +25,11 @@ typedef struct LetStatement {
   Expression *value;
   Identifier *identifier;
 } LetStatement;
+
+typedef struct ReturnStatement {
+  Token *token;
+  Expression *retVal;
+} ReturnStatement;
 
 typedef struct Parser {
   Lexer *lexer;
@@ -40,6 +48,7 @@ typedef enum ParserError {
 
 typedef union StatementData {
   LetStatement letSt;
+  ReturnStatement returnSt;
 } StatementData;
 
 typedef struct Statement {

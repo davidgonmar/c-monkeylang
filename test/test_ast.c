@@ -20,7 +20,7 @@ void test_parser_new() {
   TEST_ASSERT_EQUAL(par->peekToken->type, IDENT);
   TEST_ASSERT_EQUAL_STRING(par->peekToken->literal, "x");
 }
-void test_parser_simple() {
+void test_let() {
   char *input = "let x = 5;\n"
                 "let y = 10;\n"
                 "let foobar = 838383;\n";
@@ -47,9 +47,32 @@ void test_parser_simple() {
   }
 }
 
+void test_return() {
+  char *input = "return 5;\n"
+                "return 10;\n"
+                "return 838383;\n";
+  Lexer *lex = lexer_new(input);
+  TEST_ASSERT_NOT_NULL(lex);
+  Parser *par = parser_new(lex);
+  TEST_ASSERT_NOT_NULL(par);
+
+  Program *prog = parser_parse_program(par);
+  TEST_ASSERT_NOT_NULL(prog);
+  TEST_ASSERT_EQUAL_INT(3, prog->n_statements);
+
+  for (int i = 0; i < 3; i++) {
+    Statement *st = prog->statements[i];
+    TEST_ASSERT_EQUAL_INT(STATEMENT_TYPE_RETURN, st->type);
+    TEST_ASSERT_EQUAL_INT(RETURN, st->data.returnSt.token->type);
+    TEST_ASSERT_EQUAL_STRING(st->data.returnSt.token->literal, "return");
+    TEST_ASSERT_NOT_NULL(st->data.returnSt.retVal);
+  }
+}
+
 int main() {
   UNITY_BEGIN();
   RUN_TEST(test_parser_new);
-  RUN_TEST(test_parser_simple);
+  RUN_TEST(test_let);
+  RUN_TEST(test_return);
   return UNITY_END();
 }
